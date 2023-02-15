@@ -5,7 +5,7 @@ readme = "README.md"
 requires-python = ">=3.8"
 description = "First assignment of the Foundations Learning Path"
 authors = [
-    {name : "Rita Carvalho<anarita.rc@gmail.com>"}
+    {name = "Rita Carvalho<anarita.rc@gmail.com>"}
 ]
 dependencies = ["pandas","Pathlib"]
 
