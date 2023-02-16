@@ -34,7 +34,7 @@ def to_pivot():
     data[['unit','sex', 'age', 'region']] = data[descrip_column].str.split(',', expand=True)
     return data
 
-def clean_data(reg='pt'):
+def clean_data(reg : str ='pt'):
     """Full process to clean data"""
     pivot_data = to_pivot()
     int_float_data = convert_int_float(pivot_data)
