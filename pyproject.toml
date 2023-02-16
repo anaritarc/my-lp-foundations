@@ -7,7 +7,7 @@ description = "First assignment of the Foundations Learning Path"
 authors = [
     {name = "Rita Carvalho<anarita.rc@gmail.com>"}
 ]
-dependencies = ["pandas","Pathlib"]
+dependencies = ["pandas"]
 
 [project.optional-dependencies]
 dev = ["pytest", "pylint", "pytest-cov"]
