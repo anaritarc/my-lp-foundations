@@ -34,3 +34,7 @@ Now you're ready to go!
 Open the `README.md` file inside each assignment and follow the instructions.
 
 > Note: Remember that all commands inside the Readme files assume you are in the root of the project.
+
+## Status Badge
+
+[![Pylint](https://github.com/anaritarc/my-lp-foundations/actions/workflows/pylint.yml/badge.svg)](https://github.com/anaritarc/my-lp-foundations/actions/workflows/pylint.yml)
