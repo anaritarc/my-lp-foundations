@@ -28,7 +28,6 @@ def clean_data(raw_data, reg='pt'):  # pylint: disable=missing-function-docstrin
     data_by_region = data[data.region.str.lower() == reg.lower()]
     return data_by_region
 
-
 def main():  # pylint: disable=missing-function-docstring
     raw_data = load_data()
     data_by_region = clean_data(raw_data)
