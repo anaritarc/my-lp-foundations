@@ -13,7 +13,7 @@ def save_data(df): # pylint: disable=invalid-name
     filepath = Path('./life_expectancy/data/pt_life_expectancy.csv')
     df.to_csv(filepath, index = False)
 
-def clean_data(raw_data, reg='pt'):  # pylint: disable=missing-function-docstring
+def clean_data(raw_data, reg):  # pylint: disable=missing-function-docstring
     descrip_column = raw_data.columns[0]
     data = raw_data.melt(id_vars = descrip_column)
     data[['unit','sex', 'age', 'region']] = data[descrip_column].str.split(',', expand=True)
@@ -28,8 +28,8 @@ def clean_data(raw_data, reg='pt'):  # pylint: disable=missing-function-docstrin
     data_by_region = data[data.region.str.lower() == reg.lower()]
     return data_by_region
 
-def main():  # pylint: disable=missing-function-docstring
+def main(reg='pt'):  # pylint: disable=missing-function-docstring
     raw_data = load_data()
-    data_by_region = clean_data(raw_data)
+    data_by_region = clean_data(raw_data, reg)
     save_data(data_by_region)
     
