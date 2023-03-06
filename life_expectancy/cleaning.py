@@ -1,19 +1,23 @@
-"""Python version 3.11.2 """
+"""Clean data code"""
 
+import argparse
 from pathlib import Path
 import pandas as pd
 
-def load_data():
-    """Get data from a tsv"""
-    p_raw_d = Path('./life_expectancy/data/eu_life_expectancy_raw.tsv')
-    return pd.read_csv(p_raw_d, sep='\t')
+DATA_DIR = Path(__file__).parent / 'data'
 
-def save_data(df): # pylint: disable=invalid-name
+def load_data() -> pd.DataFrame:
+    """Get data from a tsv"""
+    name_file = DATA_DIR / "eu_life_expectancy_raw.tsv"
+    return pd.read_csv(name_file, sep='\t')
+
+def _save_data(df) -> None: # pylint: disable=invalid-name
     """Save data in a csv"""
-    filepath = Path('./life_expectancy/data/pt_life_expectancy.csv')
+    name_file = DATA_DIR / "pt_life_expectancy.csv"
+    filepath = Path(name_file)
     df.to_csv(filepath, index = False)
 
-def clean_data(raw_data, reg):  # pylint: disable=missing-function-docstring
+def clean_data(raw_data: pd.DataFrame, region: str) -> pd.DataFrame:
     descrip_column = raw_data.columns[0]
     data = raw_data.melt(id_vars = descrip_column)
     data[['unit','sex', 'age', 'region']] = data[descrip_column].str.split(',', expand=True)
@@ -25,11 +29,18 @@ def clean_data(raw_data, reg):  # pylint: disable=missing-function-docstring
     data = data.dropna(axis = 0)
     data = data[['unit', 'sex', 'age', 'region', 'year', 'value']]
 
-    data_by_region = data[data.region.str.lower() == reg.lower()]
+    data_by_region = data[data.region.str.lower() == region.lower()]
     return data_by_region
 
-def main(reg='pt'):  # pylint: disable=missing-function-docstring
+def main(region: str) ->None:
     raw_data = load_data()
-    data_by_region = clean_data(raw_data, reg)
-    save_data(data_by_region)
-    
+    data_by_region = clean_data(raw_data, region)
+    print(data_by_region.head())
+    _save_data(data_by_region)
+
+
+if __name__ == '__main__': # pragma: no cover
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-r","--region", help="Select data region", type=str, default ='pt')
+    args = parser.parse_args()
+    main(args.region)
