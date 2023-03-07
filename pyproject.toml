@@ -22,3 +22,11 @@ omit = [
 
 [tool.coverage.report]
 fail_under = 80
+
+[tool.pylint."messages control"]
+disable = [
+  "missing-function-docstring"
+]
+
+[tool.pyling.basic]
+good-names = ["i", "j", "k", "ex", "Run", "_", "df"]
