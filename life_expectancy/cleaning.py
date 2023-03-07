@@ -32,15 +32,14 @@ def clean_data(raw_data: pd.DataFrame, region: str) -> pd.DataFrame:
     data_by_region = data[data.region.str.lower() == region.lower()]
     return data_by_region
 
-def main(region: str) ->None:
+def main(region='pt') ->None:
     raw_data = load_data()
     data_by_region = clean_data(raw_data, region)
-    print(data_by_region.head())
     _save_data(data_by_region)
 
 
 if __name__ == '__main__': # pragma: no cover
     parser = argparse.ArgumentParser()
-    parser.add_argument("-r","--region", help="Select data region", type=str, default ='pt')
+    parser.add_argument("-r","--region", help="Select data region", type=str)
     args = parser.parse_args()
     main(args.region)
