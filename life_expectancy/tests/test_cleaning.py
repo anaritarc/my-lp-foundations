@@ -14,7 +14,7 @@ class TestCleanData(unittest.TestCase):
         self.cleaned_data = clean_data(self.raw_data, 'pt')
         self.csv_file = OUTPUT_DIR / "pt_life_expectancy.csv"
         self.csv_file_fr = OUTPUT_DIR / "fr_life_expectancy.csv"
-        self.expected_data = pd.read_csv(FIXTURES_DIR / "pt_life_expectancy_expected.csv")        
+        self.expected_data = pd.read_csv(FIXTURES_DIR / "pt_life_expectancy_expected.csv")
 
     def test_load_data(self):
         self.assertIsInstance(self.raw_data, pd.DataFrame)
@@ -34,7 +34,7 @@ class TestCleanData(unittest.TestCase):
             main()
         except NameError:
             exit()
-            
+
     def test_main_different_region(self):
         main('fr')
         self.assertTrue(self.csv_file_fr.exists())
