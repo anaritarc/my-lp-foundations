@@ -33,7 +33,7 @@ class TestCleanData(unittest.TestCase):
         try:
             main()
         except NameError:
-            exit()
+            exit()  # pylint: disable=consider-using-sys-exit
 
     def test_main_different_region(self):
         main('fr')
