@@ -2,9 +2,8 @@
 import pandas as pd
 import pytest
 
-from . import FIXTURES_DIR, OUTPUT_DIR
 from life_expectancy.load_save_data import load_data
-
+from . import FIXTURES_DIR, OUTPUT_DIR
 
 @pytest.fixture(autouse=True)
 def run_before_and_after_tests() -> None:
