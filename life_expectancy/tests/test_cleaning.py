@@ -1,11 +1,8 @@
 """Tests for the cleaning module"""
 import pandas as pd
 from life_expectancy.cleaning import clean_data
-from . import FIXTURES_DIR
 
-def test_clean_data():
+def test_clean_data(pt_life_expectancy_expected, eu_life_expectancy) -> None:
     """Clean data testing"""
-    expected_data = pd.read_csv(FIXTURES_DIR / "pt_life_expectancy_expected.csv")
-    raw_data = pd.read_csb(FIXTURES_DIR / "eu_life_expectancy_expected")
-    actual = clean_data(raw_data, "pt")
-    pd.assert_frame_equal(actual, expected_data)
+    actual = clean_data(eu_life_expectancy, region = 'pt').reset_index(drop=True)
+    pd.testing.assert_frame_equal(actual, pt_life_expectancy_expected.reset_index(drop=True))

@@ -1,17 +1,18 @@
-"""Tests for the cleaning module"""
-from unittest.mock import patch
+"""Tests for the load and save module"""
+import unittest.mock as mock
 import pandas as pd
+from unittest.mock import patch
 from life_expectancy.load_save_data import load_data, save_data
-from . import FIXTURES_DIR
+from . import OUTPUT_DIR
 
 
-def test_load_data():
-    raw_data = load_data(FIXTURES_DIR / "eu_life_expectancy_raw_fixture.tsv")
-    pd.assertIsInstance(raw_data, pd.DataFrame)
+def test_load_data() -> None:
+    """test load_data is a panda dataframe"""
+    raw_data = load_data()
+    assert isinstance(raw_data, pd.DataFrame)
 
-def test_save_data():
-    data = load_data(FIXTURES_DIR / "pt_life_expectancy_expected.csv")
-    expected_data = FIXTURES_DIR / "pt_life_expectancy.csv"   
-    with patch.object(data, "to_csv") as to_csv_mock:
-        save_data(data, region = "Pt")
-        pd.assertTrue(pd.csv_file.exists())
+@patch("life_expectancy.load_save_data.pd.read_table")
+def test_save_data(pt_life_expectancy_expected) -> None:
+    with mock.patch.object(pt_life_expectancy_expected, "to_csv") as to_csv_mock:
+        save_data(pt_life_expectancy_expected,'pt')
+        to_csv_mock.assert_called_with(OUTPUT_DIR / "pt_life_expectancy.csv", index=False)
