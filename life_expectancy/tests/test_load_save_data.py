@@ -1,7 +1,7 @@
 """Tests for the load and save module"""
-import unittest.mock as mock
-import pandas as pd
 from unittest.mock import patch
+import unittest.mock as mock # pylint: disable=consider-using-from-import
+import pandas as pd
 from life_expectancy.load_save_data import load_data, save_data
 from . import OUTPUT_DIR
 

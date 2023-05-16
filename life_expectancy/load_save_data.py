@@ -15,3 +15,4 @@ def save_data(df,region) -> None: # pylint: disable=invalid-name
     name_file = DATA_DIR / f"{region.lower()}_life_expectancy.csv"
     filepath = Path(name_file)
     df.to_csv(filepath, index = False)
+    
