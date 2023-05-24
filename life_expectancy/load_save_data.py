@@ -10,7 +10,7 @@ def load_data() -> pd.DataFrame:
     name_file = DATA_DIR / "eu_life_expectancy_raw.tsv"
     return pd.read_csv(name_file, sep='\t')
 
-def save_data(df,region) -> None: 
+def save_data(df,region) -> None:
     """Save data in a csv"""
     name_file = DATA_DIR / f"{region.lower()}_life_expectancy.csv"
     filepath = Path(name_file)
