@@ -25,7 +25,8 @@ fail_under = 80
 
 [tool.pylint."messages control"]
 disable = [
-  "missing-function-docstring"
+  "missing-function-docstring",
+  "invalid-name",
 ]
 
 [tool.pyling.basic]
