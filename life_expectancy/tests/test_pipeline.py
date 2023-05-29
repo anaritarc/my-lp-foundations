@@ -1,3 +1,4 @@
+""""Tests for the main module"""
 import unittest
 from unittest.mock import patch, MagicMock
 from argparse import Namespace
@@ -14,7 +15,7 @@ class TestMain(unittest.TestCase):
         mock_load_data.load_data.return_value = 'raw_data'
         mock_load_strategy.return_value = mock_load_data
         mock_cleaned_data = MagicMock()
-        mock_clean_data.return_value = mock_cleaned_data        
+        mock_clean_data.return_value = mock_cleaned_data
         mock_save_data.return_value = None
 
         args = Namespace(region='pt', json_csv='json')
