@@ -27,6 +27,7 @@ fail_under = 80
 disable = [
   "missing-function-docstring",
   "invalid-name",
+  "too-few-public-methods"
 ]
 
 [tool.pyling.basic]

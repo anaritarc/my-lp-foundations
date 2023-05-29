@@ -1,7 +1,8 @@
 """Pytest configuration file"""
 import pandas as pd
 import pytest
-
+import zipfile
+import json
 from . import FIXTURES_DIR, OUTPUT_DIR
 
 @pytest.fixture(autouse=True)
@@ -20,6 +21,17 @@ def eu_life_expectancy_raw() -> pd.DataFrame:
     """Fixture to load the expected output of the cleaning script"""
     return pd.read_csv(FIXTURES_DIR / "eu_life_expectancy_raw.tsv")
 
+@pytest.fixture(scope="session")
+def eurostat_life_expect() -> pd.DataFrame:
+    """Fixture to load the expected output of the cleaning script"""
+    zip_file_path = FIXTURES_DIR / "eurostat_life_expect.zip"
+    with zipfile.ZipFile(zip_file_path) as zip_ref:
+        json_filename = zip_ref.namelist()[0]
+        zip_ref.extract(json_filename)
+        with zip_ref.open(json_filename) as json_file:
+            json_data = json_file.read().decode('utf-8')  
+            return pd.read_json(json_data)
+        
 @pytest.fixture(scope="session")
 def pt_life_expectancy_expected() -> pd.DataFrame:
     """Fixture to load the expected output of the cleaning script"""
