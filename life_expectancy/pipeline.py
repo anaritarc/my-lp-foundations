@@ -1,6 +1,7 @@
 """Main with the connection of all needed modules"""
 
 import argparse
+from pathlib import Path
 from enum import Enum
 from life_expectancy.load_save_data import LoadJsonStrategy, LoadCsvStrategy, save_data
 from life_expectancy.cleaning import clean_data
@@ -52,14 +53,16 @@ class Country(Enum):
     Moldova = 'MD'
     Russia = 'RU'
 
+DATA_DIR = Path(__file__).parent / 'data'
 
-def main(region='pt', json_csv='csv') -> None:
+def main(path = DATA_DIR/"eurostat_life_expect.zip", region= Country.Portugal) -> None:
     strategies = {
-        'json': LoadJsonStrategy(),
-        'csv': LoadCsvStrategy()
+        'json': LoadJsonStrategy,
+        'csv': LoadCsvStrategy
     }
-    data_load_strategy = strategies[json_csv.lower()]
-    raw_data = data_load_strategy.load_data()
+    file_extension = path.suffix.lower()
+    data_load_strategy = strategies[file_extension.lower()]
+    raw_data = data_load_strategy.load_data(path)
     data_by_region = clean_data(raw_data, region)
     save_data(data_by_region, region)
 
@@ -71,10 +74,5 @@ if __name__ == '__main__': # pragma: no cover
         help="Select data region",
         type=Country, choices=list(Country),
         default=Country.Portugal)
-    parser.add_argument(
-        "-f", "--json_csv", 
-        help="Select output format (json/csv)",
-        type=str, choices=['json', 'csv'],
-        default='csv')
     args = parser.parse_args()
-    main(args.region, args.json_csv)
+    main(args.region)
