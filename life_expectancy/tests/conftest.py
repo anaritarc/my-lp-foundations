@@ -1,7 +1,6 @@
 """Pytest configuration file"""
 import pandas as pd
 import pytest
-
 from . import FIXTURES_DIR, OUTPUT_DIR
 
 @pytest.fixture(autouse=True)
@@ -19,6 +18,12 @@ def run_before_and_after_tests() -> None:
 def eu_life_expectancy_raw() -> pd.DataFrame:
     """Fixture to load the expected output of the cleaning script"""
     return pd.read_csv(FIXTURES_DIR / "eu_life_expectancy_raw.tsv")
+
+@pytest.fixture(scope="session")
+def eurostat_life_expect() -> pd.DataFrame:
+    """Fixture to load the expected output of the cleaning script"""
+    zip_file_path = FIXTURES_DIR / "eurostat_life_expect.zip"
+    return pd.read_json(zip_file_path, compression="infer")
 
 @pytest.fixture(scope="session")
 def pt_life_expectancy_expected() -> pd.DataFrame:
